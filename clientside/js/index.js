@@ -6,9 +6,9 @@ async function getDonors() {
     str=``;
     employees.map((employ)=>{
         str+=`
-          <a href="./pages/profile.html?id=${employ._id}">
-
+        
         <div class="content">
+        <a href="./pages/profile.html?id=${employ._id}">
             <div class="img">
                 <img src="${employ.profile}" alt="${employ.name}">
             </div>
@@ -31,6 +31,7 @@ async function getDonors() {
                     
                 </table>
             </div>
+            </a>
         </div>
         `
     });

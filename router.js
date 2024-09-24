@@ -1,5 +1,5 @@
 import { Router } from "express";
-import * as emp from "./requestHandler.js";
+import * as emp from "./requesthandler.js";
 
 const router=Router();
 router.route("/countemployees").get(emp.countEmployees)

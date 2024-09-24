@@ -8,7 +8,7 @@ async function getEmploy() {
     const employ=await res.json();
     document.getElementById("cont").innerHTML=`
            <div class="left">
-                <img src="../img/lady.jpg" alt="${employ.name}">
+                <img src="${employ.profile}" alt="${employ.name}">
             </div>
             <div class="right">
                 <table>
@@ -41,7 +41,7 @@ async function getEmploy() {
                     </tr>
                     <tr>
                         <td class="actions" align="right">
-                        <a href="./pages/edit.html?id=${employ._id}"><button>Edit</button></a>
+                        <a href="../pages/edit.html?id=${employ._id}"><button>Edit</button></a>
                         </td>
                         <td class="actions" >
                             <button onclick="deleteEmploy('${employ._id}')">Delete</button>
