@@ -1,5 +1,5 @@
-
 import employSchema from './models/employ.model.js'
+import bcrypt from "bcrypt";
 export async function countEmployees(req,res) {
     try {
         const count=await employSchema.countDocuments({});
@@ -67,4 +67,39 @@ export async function deleteEmploy(req,res) {
     } catch (error) {
         res.status(404).send(error)
     }   
+}
+//register user 
+export async function signUp(req,res){
+    try{
+        const { email,username,password,cpassword }=req.body;
+        console.log(email,username,password,cpassword);
+        if(!(email&& username&& password&& cpassword)){
+            return res.status(404).send({msg:"Fields are empty"});
+        }
+        if(password !== cpassword){
+            return res.status(404).send({msg:"Password does not match"});
+
+        }
+        bcrypt
+            .hash(password,10)
+            .then((hashedPassword)=>{
+                userSchema
+                    .create({email,username,password,cpassword})
+                    .then(()=>{
+                        return res.status(201).send({msg:"Success"});
+                    })
+                    .catch((error)=>{
+                        return res.status(404).send({msg:"Not registered"});
+
+                    })
+            })
+            .catch((error)=>{
+                return res.status(404).send({msg:error});
+
+            })
+        
+    }catch(error){
+        return res.status(404).send({msg:error});
+
+    }
 }
