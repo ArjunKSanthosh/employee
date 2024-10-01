@@ -9,6 +9,8 @@ router.route("/getemploy/:id").get(emp.getEmploy)
 router.route("/editemploy/:_id").put(emp.editEmploy)
 router.route("/deleteemploy/:_id").delete(emp.deleteEmploy)
 router.route("/signup").post(emp.signUp)
+router.route("/signin").post(emp.signIn)
+
 
 
 export default router;

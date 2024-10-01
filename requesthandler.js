@@ -1,5 +1,9 @@
 import employSchema from './models/employ.model.js'
 import bcrypt from "bcrypt";
+import userSchema from "./models/user.model.js"
+import pkg from "jsonwebtoken"
+const {sign}=pkg;
+
 export async function countEmployees(req,res) {
     try {
         const count=await employSchema.countDocuments({});
@@ -102,4 +106,25 @@ export async function signUp(req,res){
         return res.status(404).send({msg:error});
 
     }
+}
+export async function signIn(req,res){
+    console.log(req.body);
+    const{email,password}=req.body;
+    if(!(email&&password))
+        return res.status(404).send({msg:"Fields are empty"})
+    const user=await userSchema.findOne({email})
+    if(user===null)
+        return res.status(404).send({msg:"Invalid Username"})
+
+    //convert password into hash and compare using bcrypt
+
+    const success=await bcrypt.compare(password,user.password)
+    console.log(success);
+    if(success!=true)
+        return res.status(404).send({msg:"Email and password is invalid"})
+    //Generate token using sign
+    const token=await sign({userId:user._id},process.env.JWT_KEY,{expiresIn:"24h"})
+    console.log(token);
+    return res.status(200).send({msg:"Succesfully Logged in",token})
+    
 }
