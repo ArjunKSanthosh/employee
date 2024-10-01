@@ -75,6 +75,8 @@ export async function deleteEmploy(req,res) {
 //register user 
 export async function signUp(req,res){
     try{
+        console.log(req.body);
+        
         const { email,username,password,cpassword }=req.body;
         console.log(email,username,password,cpassword);
         if(!(email&& username&& password&& cpassword)){
@@ -88,7 +90,7 @@ export async function signUp(req,res){
             .hash(password,10)
             .then((hashedPassword)=>{
                 userSchema
-                    .create({email,username,password,cpassword})
+                    .create({email,username,password:hashedPassword})
                     .then(()=>{
                         return res.status(201).send({msg:"Success"});
                     })

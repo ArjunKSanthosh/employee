@@ -6,14 +6,15 @@ document.getElementById("signup").addEventListener("submit",async(e)=>{
     console.log(username,email,password,cpassword);
     fetch("http://localhost:3000/api/signup",{
         method:"POST",
-        heaers:{"Content-Type":"application/json"},
+        headers:{"Content-Type":"application/json"},
         body:JSON.stringify({username,email,password,cpassword})
     }).then((res)=>{
         console.log(res);
         if(res.status==201){
             console.log(res);
-            window.location.href="./index.html"
-        }else if(res.status==400){
+            alert("success");
+            window.location.href="../index.html"
+        }else if(res.status==404){
             console.log(res);
             alert("Empid Already Exists")
         }else{
