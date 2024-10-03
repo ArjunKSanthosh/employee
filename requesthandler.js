@@ -32,8 +32,16 @@ export async function addEmp(req,res){
 }
 export async function getEmployees(req,res) {
     try {
+        console.log(req.user.userId);
+        const _id=req.user.userId;
+        const user=await userSchema.findOne({_id})
+        console.log(user);
+        if(!user) return res.status(403).send({msg:"Unauthorised Access"})
         const employees=await employSchema.find();
-        res.status(200).send(employees)
+    res.status(200).send({employees,username:user.username})
+        
+        // const employees=await employSchema.find();
+        // res.status(200).send(employees)
         
     } catch (error) {
         res.status(404).send({msg:error})
