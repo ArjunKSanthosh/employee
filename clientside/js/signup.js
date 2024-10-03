@@ -9,11 +9,12 @@ document.getElementById("signup").addEventListener("submit",async(e)=>{
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({username,email,password,cpassword})
     }).then((res)=>{
+        console.log("haiiiii");
         console.log(res);
         if(res.status==201){
             console.log(res);
             alert("success");
-            window.location.href="../index.html"
+            window.location.href="../pages/signin.html"
         }else if(res.status==404){
             console.log(res);
             alert("Empid Already Exists")

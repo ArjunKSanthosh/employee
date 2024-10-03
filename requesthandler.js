@@ -36,7 +36,8 @@ export async function getEmployees(req,res) {
         const _id=req.user.userId;
         const user=await userSchema.findOne({_id})
         console.log(user);
-        if(!user) return res.status(403).send({msg:"Unauthorised Access"})
+        if(!user)
+             return res.status(403).send({msg:"Unauthorised Access"})
         const employees=await employSchema.find();
     res.status(200).send({employees,username:user.username})
         
@@ -100,6 +101,8 @@ export async function signUp(req,res){
                 userSchema
                     .create({email,username,password:hashedPassword})
                     .then(()=>{
+                        console.log("Success");
+                        
                         return res.status(201).send({msg:"Success"});
                     })
                     .catch((error)=>{

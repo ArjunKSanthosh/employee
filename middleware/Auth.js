@@ -13,7 +13,7 @@ export default async function Auth(req,res,next){
         req.user=auth;
         next();
     } catch (error) {
-        return res.this.status(403).send({msg:"Session expired please login again"});
+        return res.status(403).send({msg:"Session expired please login again"});
         
     }
 }
