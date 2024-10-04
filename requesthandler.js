@@ -133,7 +133,7 @@ export async function signIn(req,res){
 
     const success=await bcrypt.compare(password,user.password)
     console.log(success);
-    if(success!=true)
+    if(success!==true)
         return res.status(404).send({msg:"Email and password is invalid"})
     //Generate token using sign
     const token=await sign({userId:user._id},process.env.JWT_KEY,{expiresIn:"24h"})

@@ -53,6 +53,14 @@
     border-radius: 4px;
     transition: 0.4s;
 }
+.right a{
+    text-decoration: none;
+}
+.right h4{
+    color: black;
+    font-weight: lighter;
+}
+
 
 .button1{
     width: 27%;

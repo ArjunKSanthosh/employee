@@ -1,10 +1,10 @@
-
+const value = localStorage.getItem("Auth");
 async function getDonors() {
-    const res=await fetch("http://localhost:3000/api/getemployees");
+    const res=await fetch("http://localhost:3000/api/getemployees",{headers:{"Authorization":`Bearer ${value}`}});
     const employees=await res.json();
-    console.log(employees);
+   if(res.status==200){
     str=``;
-    employees.map((employ)=>{
+    employees.employees.map((employ)=>{
         str+=`
         
         <div class="content">
@@ -36,6 +36,11 @@ async function getDonors() {
         `
     });
     document.getElementById("contents").innerHTML=str;
+   }else{
+    alert(employees.msg)
+    window.location.href="../pages/signin.html"
+   }
+    
 }
 getDonors();
 
@@ -117,3 +122,7 @@ document.getElementById("filter").addEventListener('keyup',async(e)=>{
             console.log(error);
         }
 })
+function logout() {
+    localStorage.removeItem("Auth");
+    window.location.href="../pages/signin.html"
+}
