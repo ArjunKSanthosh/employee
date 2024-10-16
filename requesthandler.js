@@ -4,12 +4,12 @@ import userSchema from "./models/user.model.js"
 import pkg from "jsonwebtoken"
 import nodemailer from "nodemailer"
 const transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
+    host: "sandbox.smtp.mailtrap.io",
     port:2525,
     secure: false, // true for port 465, false for other ports
     auth: {
       user: "378a61f3f1ec93",
-      pass: "********e7ac",
+      pass: "3dffcf6d10e7ac",
     },
   });
 const {sign}=pkg;
@@ -153,6 +153,8 @@ export async function signIn(req,res){
 }
 export async function forgetPassword(req,res) {
     const {email}=req.body;
+//     console.log(email);
+    
     const user=await userSchema.findOne({email})
     if(!user)
         return res.status(403).send({msg:"User doesn't exist"})
@@ -165,7 +167,7 @@ export async function forgetPassword(req,res) {
     to: "bar@example.com, baz@example.com", // list of receivers
     subject: "Hello ✔", // Subject line
     text: "Hello world?", // plain text body
-    html: "<b>Hello world?</b>", // html body
+    html: `<h1>${otp}</h1>`, // html body
   });
 
   console.log("Message sent: %s", info.messageId);
@@ -174,6 +176,7 @@ export async function forgetPassword(req,res) {
 }
 export async function otpCheck(req,res){
     const{email,otp}=req.body;
+    
     const check=await userSchema.findOne({$and:[{email:email},{otp:otp}]})
     if(!check)
         return res.status(403).send({msg:"OTP does not match"})
