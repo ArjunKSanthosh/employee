@@ -4,12 +4,11 @@ import userSchema from "./models/user.model.js"
 import pkg from "jsonwebtoken"
 import nodemailer from "nodemailer"
 const transporter = nodemailer.createTransport({
-    host: "sandbox.smtp.mailtrap.io",
-    port:2525,
-    secure: false, // true for port 465, false for other ports
+ 
+    service:"gmail",
     auth: {
-      user: "378a61f3f1ec93",
-      pass: "3dffcf6d10e7ac",
+      user: "arjunk80043@gmail.com",
+      pass: "uukl gaea htbv yiqd",
     },
   });
 const {sign}=pkg;
@@ -163,8 +162,8 @@ export async function forgetPassword(req,res) {
     console.log(update);
      // send mail with defined transport object
     const info = await transporter.sendMail({
-    from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>', // sender address
-    to: "bar@example.com, baz@example.com", // list of receivers
+    from: '"Arjun 👻" <arjunk80043@gmail.com>', // sender address
+    to: "arjunksanthosh15@gmail.com", // list of receivers
     subject: "Hello ✔", // Subject line
     text: "Hello world?", // plain text body
     html: `<h1>${otp}</h1>`, // html body
